@@ -58,8 +58,6 @@ exports.signin = async (req, res) => {
     const payload = {
       user: {
         id: user.id,
-        name: user.name,
-        email: user.email,
       },
     };
 
@@ -77,4 +75,14 @@ exports.signin = async (req, res) => {
     console.log(error.message);
     res.status(500).json({ error: "Server Error" });
   }
+};
+
+exports.requireSignin = expressJwt({
+  secret: config.get("jwtSecret"),
+  userProperty: "auth",
+  algorithms: ["RS256"],
+});
+
+exports.signout = (req, res) => {
+  res.json({ message: "Signout Successful" });
 };
