@@ -58,6 +58,8 @@ exports.signin = async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        email: user.email,
       },
     };
 
@@ -67,6 +69,7 @@ exports.signin = async (req, res) => {
       { expiresIn: 360000000 },
       (err, token) => {
         if (err) throw err;
+        res.cookie("token", token, { expire: new Date() + 99999 });
         res.json({ token });
       }
     );

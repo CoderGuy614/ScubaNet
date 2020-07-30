@@ -1,11 +1,15 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const connectDB = require("./config/db");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const path = require("path");
+const expressValidator = require("express-validator");
+const bodyParser = require("body-parser");
 
+//Initialize express app
 const app = express();
 
 // Connect Database
+const connectDB = require("./config/db");
 connectDB();
 
 // Routes
@@ -15,6 +19,7 @@ const authRoutes = require("./routes/auth");
 
 //Middleware
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //Routes Middleware
 app.use("/api", userRoutes);
