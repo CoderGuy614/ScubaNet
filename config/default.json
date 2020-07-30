@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://JLutz110:Mongoloid99$@scubanet.suyau.mongodb.net/ScubaNet?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}
