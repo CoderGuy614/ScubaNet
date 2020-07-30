@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 const path = require("path");
 
@@ -7,7 +8,17 @@ const app = express();
 // Connect Database
 connectDB();
 
-app.get("/", (req, res) => res.send("HELLO FROM EXPRESS"));
+// Routes
+
+const userRoutes = require("./routes/user");
+const authRoutes = require("./routes/auth");
+
+//Middleware
+app.use(bodyParser.json());
+
+//Routes Middleware
+app.use("/api", userRoutes);
+app.use("/api", authRoutes);
 
 // Serve static assets in production
 
