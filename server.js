@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 //Routes Middleware
 app.use("/api", userRoutes);
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
 
 // Serve static assets in production
 

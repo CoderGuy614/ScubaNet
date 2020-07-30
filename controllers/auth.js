@@ -80,9 +80,18 @@ exports.signin = async (req, res) => {
 exports.requireSignin = expressJwt({
   secret: config.get("jwtSecret"),
   userProperty: "auth",
-  algorithms: ["RS256"],
+  algorithms: ["HS256"],
 });
 
 exports.signout = (req, res) => {
   res.json({ message: "Signout Successful" });
+};
+
+exports.isAuth = (req, res, next) => {
+  console.log("IS AUTH MIDDLEWARE RAN");
+  next();
+};
+
+exports.test = (req, res) => {
+  res.json({ message: "TEST WAS SUCCESSFUL" });
 };
