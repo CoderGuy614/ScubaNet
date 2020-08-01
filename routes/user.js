@@ -1,11 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-const { userById, read } = require("../controllers/user");
-const { requireSignin, isAuth } = require("../controllers/auth");
+const { createUser } = require("../controllers/user");
 
-router.get("/user/:userId", read);
+// const test = () => console.log("SUCCESS");
 
-router.param("userId", userById);
+router.route("/").post(createUser);
 
 module.exports = router;
