@@ -3,27 +3,44 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 
 //@desc Create a user
-//@route POST /api/v1/users/
+//@route POST /api/user/
 //@access Private/Admin
 exports.createUser = asyncHandler(async (req, res, next) => {
   const user = await User.create(req.body);
   res.status(201).json({ success: true, data: user });
 });
 
-// exports.read = (req, res) => {
-//   return res.json(req.user);
-// };
+//@desc Get all users
+//@route GET /api/users/
+//@access Private/Admin
+exports.getUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({ success: true, data: users });
+});
 
-// exports.userById = async (req, res, next, id) => {
-//   try {
-//     const user = await User.findById(id).select("-password");
-//     req.user = user;
-//     next();
-//   } catch (error) {
-//     console.log("THIS YOUR ERROR", error);
-//     if (!user) {
-//       return res.status(400).json({ error: "User not found" });
-//     }
-//     return res.status(400).json({ error: `${error.message}` });
-//   }
-// };
+//@desc Get a single users
+//@route GET /api/user/:id
+//@access Private/Admin
+exports.getUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  res.status(200).json({ success: true, data: user });
+});
+
+//@desc Update a user
+//@route PUT /api//user/:id
+//@access Private/Admin
+exports.updateUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({ success: true, data: user });
+});
+
+//@desc Delete a user
+//@route DELETE /api//user/:id
+//@access Private/Admin
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+  await User.findByIdAndDelete(req.params.id);
+  res.status(200).json({ success: true, data: {} });
+});
